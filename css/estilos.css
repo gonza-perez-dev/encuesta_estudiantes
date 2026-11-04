@@ -1,0 +1,29 @@
+* { box-sizing: border-box; 
+}
+body { background: #f3f6fa; color: #263445; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; 
+}
+.encabezado {
+   background: linear-gradient(120deg, #123b68, #176c9c); color: #fff;
+}
+.encabezado p { max-width: 850px; color: #e7f1f8; }
+.etiqueta { font-size: .75rem; letter-spacing: .12em; font-weight: 700; color: #b9d9ef; }
+.aviso { background: #fff; border-left: 4px solid #2382b8; padding: 18px 20px; border-radius: 10px; box-shadow: 0 3px 14px rgba(30,50,70,.05); }
+.formulario { background: #fff; padding: clamp(18px, 4vw, 38px); border-radius: 16px; box-shadow: 0 8px 30px rgba(30,50,70,.07); }
+.seccion { display: flex; gap: 18px; padding: 26px 0; border-bottom: 1px solid #e8edf2; }
+.seccion:first-child { padding-top: 0; }
+.seccion:last-of-type { border-bottom: 0; }
+.numero { flex: 0 0 42px; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; background: #e8f3fa; color: #176c9c; font-weight: 800; font-size: 1.15rem; }
+.seccion h2 { font-size: 1.2rem; font-weight: 700; margin: 6px 0 20px; color: #173b5c; }
+.form-label { font-weight: 600; font-size: .94rem; margin-bottom: 8px; }
+
+.form-select { min-height: 45px; border-color: #d6dee7; }
+.form-select:focus { border-color: #3987b6; box-shadow: 0 0 0 .2rem rgba(57,135,182,.13); }
+.btn-primary { background: #176c9c; border-color: #176c9c; }
+.btn-primary:hover { background: #12577f; border-color: #12577f; }
+@media (max-width: 575px) {
+  
+  .seccion { gap: 12px; }
+  .numero { flex-basis: 34px; width: 34px; height: 34px; border-radius: 9px; }
+  .seccion h2 { font-size: 1.08rem; }
+
+}
