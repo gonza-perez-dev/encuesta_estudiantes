@@ -9,7 +9,7 @@ function h($valor) {
 $total = (int)$pdo->query('SELECT COUNT(*) FROM respuestas')->fetchColumn();
 function obtenerDistribucion(PDO $pdo, string $campo): array {
     $camposPermitidos = [
-        'institucion', 'edad', 'genero', 'departamento', 'convivencia',
+        'institucion', 'carrera', 'edad', 'genero', 'departamento', 'convivencia',
         'personas_cargo', 'distancia', 'transporte', 'situacion_laboral',
         'relacion_laboral', 'ayuda_social', 'trayectoria_previa', 'interrupcion',
         'impacto_laboral', 'impacto_familiar', 'asistencia', 'factor_inasistencia',
@@ -61,8 +61,9 @@ $secciones = [
         'propiedad_dispositivo' => 'Propiedad del dispositivo',
         'conexion_internet' => 'Conexión a internet'
     ],
-    'Institución' => [
-        'institucion' => 'Institución de pertenencia'
+    'Institución y Carrera' => [
+        'institucion' => 'Institución de pertenencia',
+        'carrera' => 'Carrera elegida'
     ]
 ];
 

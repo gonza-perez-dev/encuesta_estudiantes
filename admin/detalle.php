@@ -8,7 +8,10 @@ $stmt->execute([$id]);
 $respuesta = $stmt->fetch();
 if (!$respuesta) { http_response_code(404); exit('No se encontró la respuesta.'); }
 $etiquetas = [
-'institucion'=>'Institución','edad'=>'Edad','genero'=>'Género','departamento'=>'Departamento',
+'email'=>'Correo electrónico',
+'institucion'=>'Institución',
+'carrera'=>'Carrera',
+'edad'=>'Edad','genero'=>'Género','departamento'=>'Departamento',
 'convivencia'=>'¿Con quiénes vive?','personas_cargo'=>'Personas a su cargo','distancia'=>'Distancia a la institución',
 'transporte'=>'Medio de transporte','situacion_laboral'=>'Situación laboral','relacion_laboral'=>'Relación laboral',
 'ayuda_social'=>'Ayuda social','trayectoria_previa'=>'Trayectoria académica previa','interrupcion'=>'Interrupción de trayectoria',
@@ -26,7 +29,7 @@ function h($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); }
   <div class="d-flex justify-content-between align-items-center mb-3"><h1 class="h3">Detalle de encuesta #<?= (int)$id ?></h1><a href="respuestas.php" class="btn btn-outline-secondary">Volver</a></div>
   <div class="formulario">
     <?php foreach ($etiquetas as $campo=>$etiqueta): ?>
-      <div class="row py-2 border-bottom"><div class="col-md-5 fw-semibold"><?= h($etiqueta) ?></div><div class="col-md-7"><?= nl2br(h($respuesta[$campo])) ?></div></div>
+      <div class="row py-2 border-bottom"><div class="col-md-5 fw-semibold"><?= h($etiqueta) ?></div><div class="col-md-7"><?= nl2br(h($respuesta[$campo] ?? '')) ?></div></div>
     <?php endforeach; ?>
   </div>
 </div></body></html>

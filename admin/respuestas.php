@@ -6,7 +6,7 @@ $porPagina = 20;
 $total = (int)$pdo->query('SELECT COUNT(*) FROM respuestas')->fetchColumn();
 $paginas = max(1, (int)ceil($total / $porPagina));
 $offset = ($pagina - 1) * $porPagina;
-$stmt = $pdo->prepare('SELECT id, institucion, edad, genero, departamento, fecha_registro FROM respuestas ORDER BY id DESC LIMIT :limite OFFSET :offset');
+$stmt = $pdo->prepare('SELECT id, institucion, carrera, edad, genero, departamento, fecha_registro FROM respuestas ORDER BY id DESC LIMIT :limite OFFSET :offset');
 $stmt->bindValue(':limite', $porPagina, PDO::PARAM_INT);
 $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
@@ -25,13 +25,18 @@ function h($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); }
   <p class="text-secondary">Total de encuestas: <?= $total ?></p>
   <div class="table-responsive bg-white rounded-3 shadow-sm">
     <table class="table table-hover align-middle mb-0">
-      <thead class="table-light"><tr><th>ID</th><th>Institución</th><th>Edad</th><th>Género</th><th>Departamento</th><th>Fecha</th><th></th></tr></thead>
+      <thead class="table-light"><tr><th>ID</th><th>Institución</th><th>Carrera</th><th>Edad</th><th>Género</th><th>Departamento</th><th>Fecha</th><th></th></tr></thead>
       <tbody>
-      <?php if (!$filas): ?><tr><td colspan="7" class="text-center py-4">Todavía no hay respuestas.</td></tr>
+      <?php if (!$filas): ?><tr><td colspan="8" class="text-center py-4">Todavía no hay respuestas.</td></tr>
       <?php else: foreach ($filas as $fila): ?>
         <tr>
-          <td><?= h($fila['id']) ?></td><td><?= h($fila['institucion']) ?></td><td><?= h($fila['edad']) ?></td>
-          <td><?= h($fila['genero']) ?></td><td><?= h($fila['departamento']) ?></td><td><?= h($fila['fecha_registro']) ?></td>
+          <td><?= h($fila['id']) ?></td>
+          <td><?= h($fila['institucion']) ?></td>
+          <td><?= h($fila['carrera']) ?></td>
+          <td><?= h($fila['edad']) ?></td>
+          <td><?= h($fila['genero']) ?></td>
+          <td><?= h($fila['departamento']) ?></td>
+          <td><?= h($fila['fecha_registro']) ?></td>
           <td><a class="btn btn-sm btn-outline-primary" href="detalle.php?id=<?= (int)$fila['id'] ?>">Ver</a></td>
         </tr>
       <?php endforeach; endif; ?>

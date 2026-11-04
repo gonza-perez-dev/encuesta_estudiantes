@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 require_once __DIR__ . '/includes/funciones.php';
@@ -32,7 +31,7 @@ unset($_SESSION['mensaje_exito']);
   <?php endif; ?>
 
   <div class="aviso mb-4">
-    <strong>Antes de comenzar:</strong> esta encuesta solicita tu correo electrónico. Tus respuestas serán tratadas de manera confidencial y utilizadas para caracterizar las trayectorias estudiantiles.
+    <strong>Antes de comenzar:</strong> esta encuesta solicita tu correo electrónico y carrera. Tus respuestas serán tratadas de manera confidencial y utilizadas para caracterizar las trayectorias estudiantiles.
     <div class="small text-secondary mt-2">Completá todas las preguntas y presioná «Enviar encuesta» al finalizar.</div>
   </div>
 
@@ -43,14 +42,14 @@ unset($_SESSION['mensaje_exito']);
       <div class="numero">A</div>
       <div class="flex-grow-1">
 
-        <h2>Institución de pertenencia</h2>
+        <h2>Institución de pertenencia y Carrera</h2>
 
         <div class="row g-3">
 
           <div class="col-md-6">
             <label class="form-label" for="institucion">¿A qué institución pertenecés? <span class="text-danger">*</span></label>
-
             <select class="form-select" id="institucion" name="institucion" required>
+              <option value="">Seleccioná una institución...</option>
               <?= opciones([
                 'ISFD ESCUELA NORMAL SUPERIOR "GRAL. SAN MARTÍN"',
                 'ISFT DE BIBLIOTECOLOGÍA "DR. MARIANO MORENO"',
@@ -61,8 +60,14 @@ unset($_SESSION['mensaje_exito']);
           </div>
 
           <div class="col-md-6">
-            <label class="form-label" for="email">Correo electrónico <span class="text-danger">*</span></label>
+            <label class="form-label" for="carrera">¿Cuál es tu carrera? <span class="text-danger">*</span></label>
+            <select class="form-select" id="carrera" name="carrera" required>
+              <option value="">Seleccioná primero una institución...</option>
+            </select>
+          </div>
 
+          <div class="col-md-12">
+            <label class="form-label" for="email">Correo electrónico <span class="text-danger">*</span></label>
             <input
               type="email"
               class="form-control"
@@ -272,6 +277,50 @@ unset($_SESSION['mensaje_exito']);
   </p>
 
 </main>
+
+<script>
+  // Mapeo de carreras por institución (puedes ajustar los nombres exactos según las que mandó el profesor)
+  const carrerasPorInstitucion = {
+    'ISFD ESCUELA NORMAL SUPERIOR "GRAL. SAN MARTÍN"': [
+      'Profesorado de Educación Inicial',
+      'Profesorado de Educación Primaria',
+      'Profesorado de Educación Especial',
+      'Profesorado en Matemática',
+      'Profesorado en Lengua y Literatura'
+    ],
+    'ISFT DE BIBLIOTECOLOGÍA "DR. MARIANO MORENO"': [
+      'Tecnicatura Superior en Bibliotecología',
+      'Tecnicatura Superior en Gestión de Documentación e Información'
+    ],
+    'ISFD ESCUELA NORMAL SUP. "GRAL. MANUEL BELGRANO" (Formación Docente)': [
+      'Profesorado de Educación Física',
+      'Profesorado en Historia',
+      'Profesorado en Geografía'
+    ],
+    'ISFT ESCUELA NORMAL SUP. "GRAL. MANUEL BELGRANO" (Formación Técnica)': [
+      'Tecnicatura Superior en Administración de Empresas',
+      'Tecnicatura Superior en Análisis de Sistemas',
+      'Tecnicatura Superior en Mantenimiento Industrial'
+    ]
+  };
+
+  document.getElementById('institucion').addEventListener('change', function() {
+    const institucionSeleccionada = this.value;
+    const selectCarrera = document.getElementById('carrera');
+    
+    // Limpiar opciones anteriores
+    selectCarrera.innerHTML = '<option value="">Seleccioná una carrera...</option>';
+    
+    if (institucionSeleccionada && carrerasPorInstitucion[institucionSeleccionada]) {
+      carrerasPorInstitucion[institucionSeleccionada].forEach(function(carrera) {
+        const option = document.createElement('option');
+        option.value = carrera;
+        option.textContent = carrera;
+        selectCarrera.appendChild(option);
+      });
+    }
+  });
+</script>
 
 </body>
 </html>
